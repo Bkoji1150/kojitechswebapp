@@ -70,7 +70,7 @@ export sonar_token="383769908cc1c26sdfgd76d57ce659e0aca361bc"
 ```bash
 mvn spring-boot:run
 ```
-## Run our build.
+## mvn build and call sonarqube for bug test.
 ```bash
 mvn sonar:sonar -Dsonar.login=$sonar_token
 ```

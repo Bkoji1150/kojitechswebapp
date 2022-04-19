@@ -2,7 +2,7 @@
 
 ## It's always a good practice to build and test your code. hence we can leverage the following Devops tool set 
 
-```hcl
+```bash
 Maven 'main build tool.'
 Jenkins 'as intergration tool'
 Sonarqube 'for security hostspot testing'
@@ -10,28 +10,8 @@ We can spin up a sonarqube container
 ```
 you can use this file docker-compose.yml
 ```bash
-services:version: "3"
-  sonarqube:
-    image: sonarqube:lts 
-    ports:
-      - 9000:9000
-    volumes:
-    - /Users/kojibello/Docker-Jenkins-Sana:/opt/sonarqube/data
-    - /Users/kojibello/Docker-Jenkins-Sana:/opt/sonarqube/extensions
-    - /Users/kojibello/Docker-Jenkins-Sana:/opt/sonarqube/logs
-    networks:
-      - mynetwork
-  jenkins:
-    image: jenkins/jenkins:2.289.1-jdk11
-    ports:
-      - 8000:8000
-    volumes:
-    - /Users/kojibello/Docker-Jenkins-Sana:/var/jenkins_home      
-    networks:
-      - mynetwork
-networks:
-  mynetwork:version: "3"
-services:
+version: "3"
+services: 
   sonarqube:
     image: sonarqube:lts
     depends_on:
@@ -40,6 +20,8 @@ services:
       SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
       SONAR_JDBC_USERNAME: sonar
       SONAR_JDBC_PASSWORD: sonar
+    networks:
+      - sonar-network
     volumes:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
@@ -54,8 +36,6 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data
-    
-
 volumes:
   sonarqube_data:
   sonarqube_extensions:
@@ -76,21 +56,24 @@ password: admin
 ### 
 ```bash
 docker ps 
-docker exec -it b31c3ba69841 bash  
+docker exec -it postgresId bash  
 psql -U postgres 
 psql -U sonar
 ```
 ## create a sonarqube token that would be used to lrun our build.
 ### next
 export the token as an environment variable.
+```bash
 export sonar_token="383769908cc1c26sdfgd76d57ce659e0aca361bc"
-
+```
 ### we can run and test our code...
 ```bash
 mvn spring-boot:run
 ```
 ## Run our build.
+```bash
 mvn sonar:sonar -Dsonar.login=$sonar_token
+```
 ### monitor the build process on sonar
 ## Now Let's Build our app.
 The pom.xml already contains docker depencies hence it's going to creat .war file and would be stored in ./target folder.

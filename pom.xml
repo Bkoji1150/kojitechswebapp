@@ -11,8 +11,8 @@
 	<packaging>war</packaging>
 	<groupId>com.stacksimplify.restservices</groupId>
 	<artifactId>kojitechs-app</artifactId>
-	<version>1.0.0-MySQLDB</version>	
-	<name>kube-usermgmt-webapp</name>
+	<version>1.0.0-register-app</version>	
+	<name>kojitechs-registration-app</name>
 	<description>Kojitechs registration app</description>
 
 	<properties>
@@ -103,7 +103,7 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
                             <addResources>true</addResources>
-                           <finalName>usermgmt-webapp</finalName> 
+                           <finalName>kojitechs-registration-app</finalName> 
                         </configuration>
                     </plugin>
 					<!-- Docker Spotify Plugin -->
@@ -120,7 +120,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<repository>stacksimplify/${project.name}</repository>
+							<repository>kojitechs/${project.name}</repository>
 							<tag>${project.version}</tag>
 							<skipDockerInfo>true</skipDockerInfo>
 						</configuration>

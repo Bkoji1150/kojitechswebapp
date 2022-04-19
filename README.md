@@ -10,7 +10,7 @@ We can spin up a sonarqube container
 ```
 you can use this file docker-compose.yml
 ```bash
-services:
+services:version: "3"
   sonarqube:
     image: sonarqube:lts 
     ports:

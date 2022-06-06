@@ -64,7 +64,7 @@ psql -U sonar
 ### next
 export the token as an environment variable.
 ```bash
-export sonar_token="383769908cc1c26sdfgd76d57ce659e0aca361bc"
+export sonar_token="585d27c738bdc53dbf515ff15b0990727c8b7e31"
 ```
 ### we can run and test our code...
 ```bash

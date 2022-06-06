@@ -11,7 +11,7 @@ We can spin up a sonarqube container
 you can use this file docker-compose.yml
 ```bash
 version: "3"
-services: 
+services:
   sonarqube:
     image: sonarqube:lts
     depends_on:
@@ -20,8 +20,6 @@ services:
       SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
       SONAR_JDBC_USERNAME: sonar
       SONAR_JDBC_PASSWORD: sonar
-    networks:
-      - sonar-network
     volumes:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
@@ -36,6 +34,7 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data
+
 volumes:
   sonarqube_data:
   sonarqube_extensions:

@@ -95,7 +95,7 @@
 
 			    	
 	</dependencies>
-           <build>
+           <!-- <build>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -104,8 +104,21 @@
                             <addResources>true</addResources>
                            <finalName>kojitechs-registration-app</finalName> 
                         </configuration>
-                    </plugin>
-					
+                    </plugin> -->
+					<!-- <build>
+						<pluginManagement>
+						  <plugins>
+							<plugin>
+							  <groupId>org.eclipse.m2e</groupId>
+							  <artifactId>lifecycle-mapping</artifactId>
+							  <version>1.0.0</version>
+							  <configuration>
+								...
+							  </configuration>
+							</plugin>
+						  </plugins>
+						</pluginManagement>
+					  </build> -->
 					<!-- Docker Spotify Plugin -->
 					<!-- <plugin>
 						<groupId>com.spotify</groupId>

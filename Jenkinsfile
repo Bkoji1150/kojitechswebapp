@@ -18,7 +18,7 @@
                 checkout scm
             }
            }
-            stage('Compile') {
+            stage('mvn Compile') {
                 steps {
                     sh 'mvn spring-boot:run'
                 }
@@ -30,9 +30,9 @@
             }
             stage("Static Code analysis With SonarQube") {                                               
                 steps {
-                withSonarQubeEnv(installationName: 'sonar') {
-                    sh  'mvn sonar:sonar'
-                }
+              withSonarQubeEnv(installationName: 'sonar') {
+                sh  'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+              }
                 }
             }
             stage ("Waiting for Quality Gate Result") {

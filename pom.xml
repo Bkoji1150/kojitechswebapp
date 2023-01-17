@@ -82,9 +82,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.webjars</groupId>
+			<!-- <groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>1.9.1</version>
+			<version>1.9.1</version> -->
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -95,7 +101,7 @@
 
 			    	
 	</dependencies>
-           <!-- <build>
+           <build>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -104,21 +110,8 @@
                             <addResources>true</addResources>
                            <finalName>kojitechs-registration-app</finalName> 
                         </configuration>
-                    </plugin> -->
-					<!-- <build>
-						<pluginManagement>
-						  <plugins>
-							<plugin>
-							  <groupId>org.eclipse.m2e</groupId>
-							  <artifactId>lifecycle-mapping</artifactId>
-							  <version>1.0.0</version>
-							  <configuration>
-								...
-							  </configuration>
-							</plugin>
-						  </plugins>
-						</pluginManagement>
-					  </build> -->
+                    </plugin>
+					
 					<!-- Docker Spotify Plugin -->
 					<!-- <plugin>
 						<groupId>com.spotify</groupId>

@@ -10,37 +10,34 @@ We can spin up a sonarqube container
 ```
 you can use this file docker-compose.yml
 ```bash
-version: "3"
+vversion: '3'
 services:
+  db:
+    image: mysql
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: P1b7JBvP8II4
+      MYSQL_DATABASE: webappdb
+      MYSQL_USER: kojibello
+      MYSQL_PASSWORD: P1b7JBvP8II4
+
   sonarqube:
-    image: sonarqube:lts
     depends_on:
       - db
-    environment:
-      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
-      SONAR_JDBC_USERNAME: sonar
-      SONAR_JDBC_PASSWORD: sonar
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_logs:/opt/sonarqube/logs
+    image: kojibello/kojitechs-registration-app:1.2.01-pre-release
+    restart: always
     ports:
-      - "9000:9000"
-  db:
-    image: postgres:12
+      - "8080:8080"
     environment:
-      POSTGRES_USER: sonar
-      POSTGRES_PASSWORD: sonar
-    volumes:
-      - postgresql:/var/lib/postgresql
-      - postgresql_data:/var/lib/postgresql/data
-
+      DB_HOSTNAME: db
+      DB_PORT: 3306
+      DB_NAME: webappdb
+      DB_USERNAME: kojibello
+      DB_PASSWORD: P1b7JBvP8II4
 volumes:
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
-  postgresql:
-  postgresql_data:
+  mysql-data:
 ```
 ### 
 login
@@ -97,3 +94,11 @@ docker push {account_id}.dkr.ecr.us-east-1.amazonaws.com/kojitechs-registration-
 docker image rm {account_id}.dkr.ecr.us-east-1.amazonaws.com/kojitechs-registration-app:v1.0.0 
 ```
 The end!
+
+## Create user in DB
+```
+INSERT INTO user (userid, email_address, first_name, last_name, password, ssn, user_name)
+VALUES ("101", "kojitechs@gmail.com", "koji", "bello", "$2a$10$w.2Z0pQl9K5GOMVT.y2Jz.UW4Au7819nbzNh8nZIYhbnjCi6MG8Qu", "202XXX", "kojitechs");
+INSERT INTO role (roleid, role) VALUES ("201", "ADMIN");
+INSERT INTO user_role (userid, roleid) VALUES ("101", "201");
+```

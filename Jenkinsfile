@@ -20,7 +20,7 @@
            }
             stage('mvn Compile') {
                 steps {
-                    sh 'mvn spring-boot:run'
+                    sh 'mvn clean'
                 }
             }
             stage('Unit Tests Execution') {
@@ -31,7 +31,7 @@
             stage("Static Code analysis With SonarQube") {                                               
                 steps {
               withSonarQubeEnv(installationName: 'sonar') {
-                sh  'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+                sh  'mvn sonar:sonar'
               }
                 }
             }

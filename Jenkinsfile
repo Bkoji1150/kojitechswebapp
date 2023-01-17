@@ -1,5 +1,15 @@
  pipeline {
        agent any
+       
+        parameters { 
+        string(name: 'REPO_NAME', description: 'PROVIDER THE NAME OF DOCKERHUB IMAGE', defaultValue: 'kojitechs-kart',  trim: true)
+        string(name: 'REPO_URL', description: 'PROVIDER THE NAME OF DOCKERHUB/ECR URL', defaultValue: '674293488770.dkr.ecr.us-east-1.amazonaws.com',  trim: true)
+        string(name: 'AWS_REGION', description: 'AWS REGION', defaultValue: 'us-east-1')
+        choice(name: 'ACTION', choices: ['deploy', 'deploy', 'do-not-deploy'], description: 'Select action, BECAREFUL IF YOU SELECT DESTROY TO PROD')
+    }
+   environment {
+        tag = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
+    }
        stages {
            stage("Checkout Code") {
                steps {
@@ -29,8 +39,8 @@
                   waitForQualityGate abortPipeline: true
               }
               }
-          }
-       } 
+          }      
+    } 
       post {
         success {
             slackSend botUser: true, channel: 'jenkins_notification', color: 'good',

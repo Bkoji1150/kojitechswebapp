@@ -1,7 +1,6 @@
 package com.stacksimplify.restservices.entities;
 
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //Entity 
 // and
@@ -25,10 +21,6 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@GeneratedValue
-	//Reference https://thoughts-on-java.org/jpa-generate-primary-keys/
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-	//@SequenceGenerator(name="user_generator", sequenceName = "user_seq", allocationSize=50)
 	private Long userid;
 
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
@@ -57,8 +49,6 @@ public class User {
 
 	}
 	
-	
-
 	public User(Long userid, String username, String firstname, String lastname, String email, String ssn,
 			String password, Set<Role> roles) {
 		super();
@@ -71,8 +61,6 @@ public class User {
 		this.password = password;
 		this.roles = roles;
 	}
-
-
 
 	public Long getUserid() {
 		return userid;
@@ -138,15 +126,9 @@ public class User {
 		this.password = password;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", username=" + username + ", firstname=" + firstname + ", lastname="
 				+ lastname + ", email=" + email + ", ssn=" + ssn + ", password=" + password + ", roles=" + roles + "]";
 	}
-
-	
-	
-	
 }

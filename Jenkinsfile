@@ -1,9 +1,9 @@
  pipeline {
        agent any
-       
+
         parameters { 
-        string(name: 'REPO_NAME', description: 'PROVIDER THE NAME OF DOCKERHUB IMAGE', defaultValue: 'kojitechs-kart',  trim: true)
-        string(name: 'REPO_URL', description: 'PROVIDER THE NAME OF DOCKERHUB/ECR URL', defaultValue: '674293488770.dkr.ecr.us-east-1.amazonaws.com',  trim: true)
+        string(name: 'REPO_NAME', description: 'PROVIDER THE NAME OF DOCKERHUB IMAGE', defaultValue: 'kojitechswebapp',  trim: true)
+        string(name: 'REPO_URL', description: 'PROVIDER THE NAME OF DOCKERHUB/ECR URL', defaultValue: '735972722491.dkr.ecr.us-east-1.amazonaws.com',  trim: true)
         string(name: 'AWS_REGION', description: 'AWS REGION', defaultValue: 'us-east-1')
         choice(name: 'ACTION', choices: ['deploy', 'deploy', 'do-not-deploy'], description: 'Select action, BECAREFUL IF YOU SELECT DESTROY TO PROD')
     }
@@ -39,8 +39,24 @@
                   waitForQualityGate abortPipeline: true
               }
               }
-          }      
-    } 
+          }   
+        stage ("Docker Build Image") {
+              steps {
+                 script {         
+                try {
+                    sh"""
+                        
+                        docker images 
+                        """ 
+                }catch (Exception e) {
+                    echo 'An exception occurred while pushing image to docker hub'
+                    echo e.getMessage()
+            }
+            }
+
+              }
+              }
+          } 
       post {
         success {
             slackSend botUser: true, channel: 'jenkins_notification', color: 'good',

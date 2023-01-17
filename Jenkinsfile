@@ -23,13 +23,13 @@
               }
             }
           }
-          stage ("Waiting for Quality Gate Result") {
-              steps {
-                  timeout(time: 3, unit: 'MINUTES') {
-                  waitForQualityGate abortPipeline: true
-              }
-              }
-          }
+        //   stage ("Waiting for Quality Gate Result") {
+        //       steps {
+        //           timeout(time: 3, unit: 'MINUTES') {
+        //           waitForQualityGate abortPipeline: true
+        //       }
+        //       }
+        //   }
           stage("Quality Gate"){
           timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()

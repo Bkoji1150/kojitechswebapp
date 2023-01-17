@@ -28,7 +28,7 @@
                   timeout(time: 3, unit: 'MINUTES') {
                   waitForQualityGate abortPipeline: true 
                   if (qg.status != 'OK') {
-                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
               }
               }
               }

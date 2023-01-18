@@ -92,8 +92,13 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-			    	
+	<!-- https://mvnrepository.com/artifact/org.ow2.asm/asm-commons -->
+	<dependency>
+		<groupId>org.ow2.asm</groupId>
+		<artifactId>asm-commons</artifactId>
+		<version>5.0.3</version>
+	</dependency>
+						
 	</dependencies>
 
            <build>

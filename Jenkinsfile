@@ -20,7 +20,7 @@
            }
             stage('mvn Compile') {
                 steps {
-                    sh 'mvn spring-boot:run'
+                    sh 'mvn clean'
                 }
             }
             stage('Unit Tests Execution') {

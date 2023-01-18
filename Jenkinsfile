@@ -30,9 +30,7 @@
             }
             stage("Static Code analysis With SonarQube") {                                               
                 steps {
-              withSonarQubeEnv(installationName: 'sonar') {
-                sh  'mvn sonar:sonar'
-              }
+                     sh 'mvn verify sonar:sonar -Dsonar.host.url=http://18.206.120.44:9000 -Dsonar.login=b4572c51580a18640773e4fca6842a221eaff544 -Dsonar.login=jenkins -Dsonar.password=admin'
                 }
             }
             stage ("Waiting for Quality Gate Result") {

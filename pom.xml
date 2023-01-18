@@ -82,15 +82,9 @@
 		</dependency>
 
 		<dependency>
-			<!-- <groupId>org.webjars</groupId>
+			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>1.9.1</version> -->
-			<exclusions>
-				<exclusion>
-					<groupId>*</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>1.9.1</version>
 		</dependency>
 
 		<dependency>
@@ -101,6 +95,7 @@
 
 			    	
 	</dependencies>
+
            <build>
                 <plugins>
                     <plugin>
@@ -111,7 +106,6 @@
                            <finalName>kojitechs-registration-app</finalName> 
                         </configuration>
                     </plugin>
-					
 					<!-- Docker Spotify Plugin -->
 					<!-- <plugin>
 						<groupId>com.spotify</groupId>
@@ -126,7 +120,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<repository>kojibello/${project.name}</repository>
+							<repository>kojitechs/${project.name}</repository>
 							<tag>${project.version}</tag>
 							<skipDockerInfo>true</skipDockerInfo>
 						</configuration>

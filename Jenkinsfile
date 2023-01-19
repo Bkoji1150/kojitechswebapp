@@ -29,20 +29,20 @@
                     sh 'mvn surefire:test'
                 }
             }
-            // stage("Static Code analysis With SonarQube") {                                               
-            //     steps {
-            //   withSonarQubeEnv(installationName: 'sonar') {
-            //     sh  'mvn sonar:sonar'
-            //   }
-            //     }
-            // }
-            // stage ("Waiting for Quality Gate Result") {
-            //     steps {
-            //         timeout(time: 3, unit: 'MINUTES') {
-            //         waitForQualityGate abortPipeline: true
-            //     }
-            //     }
-            // }   
+            stage("Static Code analysis With SonarQube") {                                               
+                steps {
+              withSonarQubeEnv(installationName: 'sonar') {
+                sh  'mvn sonar:sonar'
+              }
+                }
+            }
+            stage ("Waiting for Quality Gate Result") {
+                steps {
+                    timeout(time: 3, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+                }
+            }   
             stage ("Docker Build Image") {
                 steps {
                     script {         

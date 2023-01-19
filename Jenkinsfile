@@ -2,6 +2,7 @@
        agent any
     tools {
         maven 'mvn'
+        jdk 'jdk'
     }
         parameters { 
         string(name: 'REPO_NAME', description: 'PROVIDER THE NAME OF DOCKERHUB IMAGE', defaultValue: 'kojitechswebapp',  trim: true)

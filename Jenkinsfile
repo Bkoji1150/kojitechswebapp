@@ -4,7 +4,7 @@
         maven 'mvn'
     }
         parameters { 
-        string(name: 'REPO_NAME', description: 'PROVIDER THE NAME OF DOCKERHUB IMAGE', defaultValue: 'kojitechswebapp',  trim: true)
+        string(name: 'REPO_NAME', description: 'PROVIDER THE NAME OF DOCKERHUB IMAGE', defaultValue: 'ci-cd-demo-kojitechs-webapp',  trim: true)
         string(name: 'REPO_URL', description: 'PROVIDER THE NAME OF DOCKERHUB/ECR URL', defaultValue: '735972722491.dkr.ecr.us-east-1.amazonaws.com',  trim: true)
         string(name: 'AWS_REGION', description: 'AWS REGION', defaultValue: 'us-east-1')
         choice(name: 'ACTION', choices: ['deploy', 'deploy', 'do-not-deploy'], description: 'Select action, BECAREFUL IF YOU SELECT DESTROY TO PROD')
@@ -47,10 +47,10 @@
                     script {         
                     try {
                         sh""" 
-                            docker images 
-                            """ 
+                            aws ecr get-login-password  --region ${params.AWS_REGION} --profile ${params.ENV} | docker login --username AWS --password-stdin ${params.REPO_URL}
+                        """ 
                     }catch (Exception e) {
-                        echo 'An exception occurred while pushing image to docker hub'
+                        echo 'An exception occurred while login image to docker hub'
                         echo e.getMessage()
                 }
                 }
@@ -61,17 +61,17 @@
         success {
             slackSend botUser: true, channel: 'jenkins_notification', color: 'good',
             message: " with ${currentBuild.fullDisplayName} completed successfully.\nMore info ${env.BUILD_URL}\nLogin to ${params.ENVIRONMENT} and confirm.", 
-            teamDomain: 'slack', tokenCredentialId: 'slack'
+            teamDomain: 'slack', tokenCredentialId: 'slack-token'
         }
         failure {
             slackSend botUser: true, channel: 'jenkins_notification', color: 'danger',
             message: "${currentBuild.fullDisplayName} got failed.", 
-            teamDomain: 'slack', tokenCredentialId: 'slack'
+            teamDomain: 'slack', tokenCredentialId: 'slack-token'
         }
         aborted {
             slackSend botUser: true, channel: 'jenkins_notification', color: 'hex',
             message: "Pipeline aborted due to a quality gate failure ${currentBuild.fullDisplayName} got aborted.\nMore Info ${env.BUILD_URL}", 
-            teamDomain: 'slack', tokenCredentialId: 'slack'
+            teamDomain: 'slack', tokenCredentialId: 'slack-token'
         }
         cleanup {
             cleanWs()

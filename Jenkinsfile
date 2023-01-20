@@ -44,25 +44,20 @@
             }
             stage ("Docker Build Image") {
                 steps {
-                    script {         
-                    try {
+                    withAWS(roleAccount:'735972722491', role:'Role_For-S3_Creation') {
                         sh""" 
                         pwd && ls -al
-                        docker build --compress -t kojitechs-registrationapp .
+                        docker build -t ${params.REPO_NAME} .
                         aws ecr get-login-password  --region ${params.AWS_REGION} | docker login --username AWS --password-stdin ${params.REPO_URL}
-                        docker tag kojitechs-registrationapp:latest ${params.REPO_URL}/${params.REPO_NAME}:${tag}
+                        docker tag ${params.REPO_NAME}:latest ${params.REPO_URL}/${params.REPO_NAME}:${tag}
                         docker push ${params.REPO_URL}/${params.REPO_NAME}:${tag}
                         docker tag ${params.REPO_URL}/${params.REPO_NAME}:${tag} ${params.REPO_URL}/${params.REPO_NAME}:latest
                         docker push ${params.REPO_URL}/${params.REPO_NAME}:latest
                         """ 
-                    }catch (Exception e) {
-                        echo 'An exception occurred while login image to docker hub'
-                        echo e.getMessage()
                 }
                 }
                 }
-            }
-          } 
+            } 
       post {
         success {
             slackSend botUser: true, channel: 'jenkins_notification', color: 'good',

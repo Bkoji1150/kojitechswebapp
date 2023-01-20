@@ -20,7 +20,7 @@
            }
             stage('mvn Compile') {
                 steps {
-                    sh 'mvn clean'
+                    sh 'mvn clean install package'
                 }
             }
             stage('Unit Tests Execution') {
